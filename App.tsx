@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Button, ScrollView, TextInput, Image } from 'react-native';
+import { View, Text, StyleSheet, Button, ScrollView, TextInput, Image,TouchableOpacity, } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -7,6 +7,19 @@ import { Ionicons } from '@expo/vector-icons';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
+
+
+function CoursesStack() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="CoursesMain" component={CoursesMainScreen} options={{ title: 'Courses' }} />
+      <Stack.Screen name="SixWeekCourses" component={SixWeekCoursesScreen} options={{ title: 'Six-Week Courses' }} />
+      <Stack.Screen name="SixMonthCourses" component={SixMonthCoursesScreen} options={{ title: 'Six-Month Courses' }} />
+      <Stack.Screen name="CourseDetails" component={ CourseDetail} options={{ title: 'Course Details' }} />
+    </Stack.Navigator>
+  );
+}
+
 
 // 🏠 HOME SCREEN
 function HomeScreen({ navigation }) {
@@ -17,52 +30,123 @@ function HomeScreen({ navigation }) {
 
       <Text style={styles.subtitle}>Our Vision</Text>
       <Text style={styles.text}>
-        To create a future where all individuals, especially women and youth, are empowered with
-        education, skills, and opportunities.
+        To create a future where every domestic worker and gardener has access to affordable, 
+        practical skills training that unlocks better opportunities, 
+        promotes self-reliance, and uplifts entire communities through empowered, 
+        skilled, and confident individuals.
       </Text>
 
       <Text style={styles.subtitle}>Our Mission</Text>
       <Text style={styles.text}>
-        We are committed to equipping individuals with essential life and career skills to promote
-        employment and entrepreneurship.
+        We are committed to equipping individuals with quality training programmes 
+        that enhance employability, foster entrepreneurship, and inspire dignity.
+        Our mission is to transform untapped potential into sustainable success, 
+        strengthening both households and communities across South Africa.
       </Text>
 
       <Text style={styles.subtitle}>Our Values</Text>
-      <Text style={styles.text}>Integrity | Empowerment | Inclusivity | Growth | Respect</Text>
+      <Text style={styles.text}>
+        At Empowering the Nation, our values are rooted in creating opportunities that uplift 
+        individuals and communities. We believe in dignity, self-reliance, and lifelong learning.
+        By providing high-quality, practical skills training, we empower people to improve their 
+        and unlock their full potential. We are committed to inclusivity, professionalism,
+        and respect, ensuring that every participant feels valued. Our goal is to inspire confidence,
+        encourage entrepreneurship, and create lasting, positive change across households and society.
+
+      </Text>
 
       
     </ScrollView>
   );
 }
 
-// 🎓 COURSES LIST SCREEN
-function CoursesSummary({ navigation }) {
-  const courses = [
-    { title: 'First Aid', desc: 'Learn to provide basic medical assistance.' },
-    { title: 'Sewing', desc: 'Master stitching, design, and garment creation.' },
-    { title: 'Cooking', desc: 'Learn to prepare nutritious and delicious meals.' },
-    { title: 'Child Minding', desc: 'Understand childcare and early development.' },
-    { title: 'Landscaping', desc: 'Learn garden and outdoor space design.' },
-    { title: 'Life Skills', desc: 'Develop essential everyday communication and planning skills.' },
+// ======= COURSES MAIN SCREEN (shows two buttons) =======
+function CoursesMainScreen({ navigation }) {
+  return (
+    <View style={styles.container}>
+      <Text style={styles.header}>Select a Course Type</Text>
+
+      <TouchableOpacity style={styles.mainButton} onPress={() => navigation.navigate('SixWeekCourses')}>
+        <Text style={styles.mainButtonText}>Six-Week Courses</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={styles.mainButton} onPress={() => navigation.navigate('SixMonthCourses')}>
+        <Text style={styles.mainButtonText}>Six-Month Courses</Text>
+      </TouchableOpacity>
+    </View>
+  );
+}
+
+//
+// ======= SIX-WEEK COURSES PAGE =======
+function SixWeekCoursesScreen({ navigation }) {
+  const sixWeekCourses = [
+    {
+      id: 1,
+      title: 'Sewing',
+      description: 'Learn hand and machine sewing fundamentals for repairing and creating garments.',
+      fullDescription:
+        'A hands-on six-week course teaching basic sewing, hemming, pattern reading, and garment creation. Ideal for beginners who want creative skills for home or small business use.',
+    },
+    {
+      id: 2,
+      title: 'Life Skills',
+      description: 'Build personal and social skills for effective communication and confidence.',
+      fullDescription:
+        'This six-week program focuses on building communication, problem-solving, and emotional intelligence for everyday challenges.',
+    },
   ];
 
   return (
-    <ScrollView style={styles.container}>
-      <Text style={styles.title}>Course Summaries</Text>
-      {courses.map((course, i) => (
-        <View key={i} style={styles.card}>
+    <ScrollView>
+      {sixWeekCourses.map((course) => (
+        <View key={course.id} style={styles.card}>
+          <Image source={course.image} style={styles.courseImage} />
           <Text style={styles.cardTitle}>{course.title}</Text>
-          <Text style={styles.cardDesc}>{course.desc}</Text>
-          <Button
-            title="Learn More"
-            color="#4CAF50"
-            onPress={() => navigation.navigate('CourseDetail', { courseName: course.title })}
-          />
+          <Text style={styles.cardText}>{course.description}</Text>
+          <Button title="Learn more" color="#228B22" onPress={() => navigation.navigate('CourseDetails', { course })} />
         </View>
       ))}
     </ScrollView>
   );
 }
+
+//
+// ======= SIX-MONTH COURSES PAGE =======
+function SixMonthCoursesScreen({ navigation }) {
+  const sixMonthCourses = [
+    {
+      id: 3,
+      title: 'First Aid',
+      description: 'Gain lifesaving skills including CPR, wound care, and emergency response.',
+      fullDescription:
+        'This six-month course provides training in emergency medical response, including CPR, wound care, and stabilizing patients before professional help arrives.',
+    },
+    {
+      id: 4,
+      title: 'Landscaping',
+      
+      description: 'Learn garden design, planting, and eco-friendly outdoor maintenance.',
+      fullDescription:
+        'A six-month practical course focusing on garden layout, soil care, plant selection, and landscaping design for homes or businesses.',
+    },
+  ];
+
+  return (
+    <ScrollView>
+      {sixMonthCourses.map((course) => (
+        <View key={course.id} style={styles.card}>
+          <Image source={course.image} style={styles.courseImage} />
+          <Text style={styles.cardTitle}>{course.title}</Text>
+          <Text style={styles.cardText}>{course.description}</Text>
+          <Button title="Learn more" color="#228B22" onPress={() => navigation.navigate('CourseDetails', { course })} />
+        </View>
+      ))}
+    </ScrollView>
+  );
+}
+
+
 
 // 📘 COURSE DETAIL SCREEN
 function CourseDetail({ route }) {
@@ -141,61 +225,52 @@ function Contact() {
       <Text style={styles.title}>Contact Us</Text>
       <TextInput placeholder="Your Name" style={styles.input} onChangeText={setName} />
       <TextInput placeholder="Your Message" style={styles.input} onChangeText={setMessage} />
-      <Button title="Submit" color="#4CAF50" onPress={() => alert(`Thanks ${name}, we'll contact you soon!`)} />
+      <Button title="Submit" color="#61C316" onPress={() => alert(`Thanks ${name}, we'll contact you soon!`)} />
       <Text style={styles.info}>Email: info@empoweringnation.org</Text>
       <Text style={styles.info}>Phone: +27 11 596 2976</Text>
     </View>
   );
 }
 
-// STACK for Courses (for inner navigation)
-function CoursesStack() {
-  return (
-    <Stack.Navigator
-      screenOptions={{
-        headerStyle: { backgroundColor: '#4CAF50' },
-        headerTintColor: '#fff',
-        headerTitleStyle: { fontWeight: 'bold' },
-      }}
-    >
-      <Stack.Screen name="CoursesSummary" component={CoursesSummary} options={{ title: 'Courses' }} />
-      <Stack.Screen name="CourseDetail" component={CourseDetail} options={{ title: 'Course Details' }} />
-    </Stack.Navigator>
-  );
-}
 
-// MAIN APP with Bottom Navigation
+// MAIN APP with Bottom Navigations
 export default function App() {
   return (
     <NavigationContainer>
       <Tab.Navigator
         screenOptions={({ route }) => ({
-          headerShown: false,
-          tabBarActiveTintColor: '#4CAF50',
-          tabBarInactiveTintColor: '#777',
-          tabBarStyle: { backgroundColor: '#E8F5E9', height: 60, paddingBottom: 5 },
+          headerStyle: { backgroundColor: '#C9EBD6' },
+          headerTitleAlign: 'center',
+          tabBarActiveTintColor: 'white',
+          tabBarInactiveTintColor: '#2E8B57',
+          tabBarStyle: { backgroundColor: '#90EE90', paddingBottom: 5 },
+          // 💡 Add icons for each tab here
           tabBarIcon: ({ color, size }) => {
             let iconName;
 
-            if (route.name === 'Home') iconName = 'home';
-            else if (route.name === 'Courses') iconName = 'book';
-            else if (route.name === 'Fees') iconName = 'cash';
-            else if (route.name === 'Locations') iconName = 'location';
-            else if (route.name === 'Contact') iconName = 'call';
+            if (route.name === 'Home') {
+              iconName = 'home';
+            } else if (route.name === 'Courses') {
+              iconName = 'book';
+            } else if (route.name === 'Fees') {
+              iconName = 'cash';
+            } else if (route.name === 'Contact Us') {
+              iconName = 'call';
+            }
 
-            return <Ionicons name={iconName} size={22} color={color} />;
+            return <Ionicons name={iconName} size={size} color={color} />;
           },
         })}
       >
         <Tab.Screen name="Home" component={HomeScreen} />
-        <Tab.Screen name="Courses" component={CoursesStack} />
+        <Tab.Screen name="Courses" component={CoursesStack} options={{ headerShown: false }} />
         <Tab.Screen name="Fees" component={FeeCalculator} />
-        <Tab.Screen name="Locations" component={Locations} />
-        <Tab.Screen name="Contact" component={Contact} />
+        <Tab.Screen name="Contact Us" component={Contact} />
       </Tab.Navigator>
     </NavigationContainer>
   );
 }
+
 
 // 🎨 STYLES
 const styles = StyleSheet.create({
@@ -225,19 +300,32 @@ const styles = StyleSheet.create({
     fontSize: 14, 
     marginVertical: 4 
   },
-  card: {
-    backgroundColor: '#C8E6C9',
+card: {
+    backgroundColor: '#008CFF',
     borderRadius: 10,
+    margin: 10,
     padding: 15,
-    marginVertical: 8,
+    shadowColor: '#000',
+    shadowOpacity: 0.1,
+    shadowOffset: { width: 0, height: 2 },
+    elevation: 3,
   },
-  cardTitle: { 
-    fontSize: 18, 
-    fontWeight: 'bold' 
+  courseImage: {
+    width: '100%',
+    height: 180,
+    borderRadius: 10,
+    marginBottom: 10,
   },
-  cardDesc: { 
-    fontSize: 14, 
-    marginVertical: 4 
+  cardTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#000000ff',
+    marginBottom: 5,
+  },
+  cardText: {
+    fontSize: 14,
+    color: '#ffffffff',
+    marginBottom: 10,
   },
   input: {
     borderWidth: 1,
