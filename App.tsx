@@ -95,6 +95,13 @@ function SixWeekCoursesScreen({ navigation }) {
       fullDescription:
         'This six-week program focuses on building communication, problem-solving, and emotional intelligence for everyday challenges.',
     },
+    {
+      id: 2,
+      title: 'Life Skills',
+      description: 'Build personal and social skills for effective communication and confidence.',
+      fullDescription:
+        'This six-week program focuses on building communication, problem-solving, and emotional intelligence for everyday challenges.',
+    },
   ];
 
  return (
