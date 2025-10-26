@@ -97,19 +97,28 @@ function SixWeekCoursesScreen({ navigation }) {
     },
   ];
 
-  return (
-    <ScrollView>
+ return (
+    <ScrollView style={styles.coursePage}>
+      <Text style={styles.pageHeader}>🌿 Six-Week Courses</Text>
+      <Text style={styles.pageSubtext}>Short, powerful, and practical learning programs.</Text>
+
       {sixWeekCourses.map((course) => (
-        <View key={course.id} style={styles.card}>
-          <Image source={course.image} style={styles.courseImage} />
-          <Text style={styles.cardTitle}>{course.title}</Text>
-          <Text style={styles.cardText}>{course.description}</Text>
-          <Button title="Learn more" color="#228B22" onPress={() => navigation.navigate('CourseDetails', { course })} />
+        <View key={course.id} style={styles.courseCard}>
+          <Image source={course.image} style={styles.courseImageStyled} />
+          <Text style={styles.courseTitle}>{course.title}</Text>
+          <Text style={styles.courseDescription}>{course.description}</Text>
+          <TouchableOpacity
+            style={styles.learnMoreButton}
+            onPress={() => navigation.navigate('CourseDetails', { course })}
+          >
+            <Text style={styles.learnMoreText}>Learn More</Text>
+          </TouchableOpacity>
         </View>
       ))}
     </ScrollView>
   );
 }
+
 
 //
 // ======= SIX-MONTH COURSES PAGE =======
@@ -133,13 +142,21 @@ function SixMonthCoursesScreen({ navigation }) {
   ];
 
   return (
-    <ScrollView>
+    <ScrollView style={styles.coursePage}>
+      <Text style={styles.pageHeader}>🌻 Six-Month Courses</Text>
+      <Text style={styles.pageSubtext}>In-depth, career-focused training for long-term growth.</Text>
+
       {sixMonthCourses.map((course) => (
-        <View key={course.id} style={styles.card}>
-          <Image source={course.image} style={styles.courseImage} />
-          <Text style={styles.cardTitle}>{course.title}</Text>
-          <Text style={styles.cardText}>{course.description}</Text>
-          <Button title="Learn more" color="#228B22" onPress={() => navigation.navigate('CourseDetails', { course })} />
+        <View key={course.id} style={styles.courseCard}>
+          <Image source={course.image} style={styles.courseImageStyled} />
+          <Text style={styles.courseTitle}>{course.title}</Text>
+          <Text style={styles.courseDescription}>{course.description}</Text>
+          <TouchableOpacity
+            style={styles.learnMoreButton}
+            onPress={() => navigation.navigate('CourseDetails', { course })}
+          >
+            <Text style={styles.learnMoreText}>Learn More</Text>
+          </TouchableOpacity>
         </View>
       ))}
     </ScrollView>
@@ -256,8 +273,9 @@ export default function App() {
               iconName = 'cash';
             } else if (route.name === 'Contact Us') {
               iconName = 'call';
+            }else if (route.name === 'Location') {
+              iconName = 'location';
             }
-
             return <Ionicons name={iconName} size={size} color={color} />;
           },
         })}
@@ -265,6 +283,7 @@ export default function App() {
         <Tab.Screen name="Home" component={HomeScreen} />
         <Tab.Screen name="Courses" component={CoursesStack} options={{ headerShown: false }} />
         <Tab.Screen name="Fees" component={FeeCalculator} />
+        <Tab.Screen name="Location" component={Locations} />
         <Tab.Screen name="Contact Us" component={Contact} />
       </Tab.Navigator>
     </NavigationContainer>
@@ -344,5 +363,75 @@ card: {
     marginTop: 10, 
     fontSize: 14 
   },
+
+  // --- COURSE PAGE STYLES ---
+coursePage: {
+  flex: 1,
+  backgroundColor: '#F6FFF3',
+  paddingHorizontal: 15,
+  paddingTop: 20,
+},
+
+pageHeader: {
+  fontSize: 24,
+  fontWeight: 'bold',
+  color: '#2E8B57',
+  textAlign: 'center',
+  marginBottom: 5,
+},
+
+pageSubtext: {
+  fontSize: 15,
+  color: '#555',
+  textAlign: 'center',
+  marginBottom: 20,
+},
+
+courseCard: {
+  backgroundColor: 'white',
+  borderRadius: 16,
+  padding: 15,
+  marginVertical: 10,
+  shadowColor: '#000',
+  shadowOpacity: 0.1,
+  shadowOffset: { width: 0, height: 2 },
+  shadowRadius: 4,
+  elevation: 3,
+},
+
+courseImageStyled: {
+  width: '100%',
+  height: 200,
+  borderRadius: 12,
+  marginBottom: 10,
+},
+
+courseTitle: {
+  fontSize: 20,
+  fontWeight: 'bold',
+  color: '#2E8B57',
+  marginBottom: 5,
+},
+
+courseDescription: {
+  fontSize: 15,
+  color: '#444',
+  marginBottom: 15,
+  lineHeight: 22,
+},
+
+learnMoreButton: {
+  backgroundColor: '#2E8B57',
+  paddingVertical: 10,
+  borderRadius: 10,
+  alignItems: 'center',
+},
+
+learnMoreText: {
+  color: 'white',
+  fontSize: 16,
+  fontWeight: '600',
+},
+
   
 });
