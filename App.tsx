@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Button, ScrollView, TextInput, Image,TouchableOpacity, } from 'react-native';
+import { View, Text, StyleSheet, Button, ScrollView, TextInput, Image,TouchableOpacity,} from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Ionicons } from '@expo/vector-icons';
+
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -16,16 +17,23 @@ function CoursesStack() {
       <Stack.Screen name="SixWeekCourses" component={SixWeekCoursesScreen} options={{ title: 'Six-Week Courses' }} />
       <Stack.Screen name="SixMonthCourses" component={SixMonthCoursesScreen} options={{ title: 'Six-Month Courses' }} />
       <Stack.Screen name="CourseDetails" component={ CourseDetail} options={{ title: 'Course Details' }} />
+      <Stack.Screen name="FeeCalculator" component={FeeCalculatorScreen} />
+      <Stack.Screen name="BookingSuccess" component={BookingSuccessScreen} />
+    
     </Stack.Navigator>
   );
 }
+
+import FeeCalculatorScreen from './screens/FeeCalculator';
+import BookingSuccessScreen from './screens/BookingSuccessScreen';
+import CoursesMainScreen from './screens/CoursesMainScreen';
 
 
 // 🏠 HOME SCREEN
 function HomeScreen({ navigation }) {
   return (
     <ScrollView style={styles.container}>
-      <Image source={{ uri: '' }} style={styles.image} />
+      <Image source={{ uri: 'https://images.unsplash.com/photo-1589571894960-20bbe2828a37?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3&s=' }} style={styles.image} />
       <Text style={styles.title}>EMPOWERING THE NATION</Text>
 
       <Text style={styles.subtitle}>Our Vision</Text>
@@ -60,45 +68,44 @@ function HomeScreen({ navigation }) {
   );
 }
 
-// ======= COURSES MAIN SCREEN (shows two buttons) =======
-function CoursesMainScreen({ navigation }) {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.header}>Select a Course Type</Text>
-
-      <TouchableOpacity style={styles.mainButton} onPress={() => navigation.navigate('SixWeekCourses')}>
-        <Text style={styles.mainButtonText}>Six-Week Courses</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity style={styles.mainButton} onPress={() => navigation.navigate('SixMonthCourses')}>
-        <Text style={styles.mainButtonText}>Six-Month Courses</Text>
-      </TouchableOpacity>
-    </View>
-  );
-}
 
 //
 // ======= SIX-WEEK COURSES PAGE =======
 function SixWeekCoursesScreen({ navigation }) {
+  const courseImages = {
+  'Sewing': require('./Images/Sewing.jpg'),
+  'Life Skills': require('./Images/LifeSkills.jpg'),
+  'First Aid': require('./Images/FirstAid.jpg'),
+  'Landscaping': require('./Images/landscaping.jpeg'),
+  'Cooking': require('./Images/cooking.jpeg'),
+  'Child Minding': require('./Images/ChildMinding.jpg'),
+  'Garden Maintenance': require('./Images/Garden.jpg'),
+  
+};
+
+
   const sixWeekCourses = [
     {
       id: 1,
-      title: 'Sewing',
-      description: 'Learn hand and machine sewing fundamentals for repairing and creating garments.',
+      title: 'Cooking',
+      description: 'A foundational course in food preparation and nutrition. Learn basic cooking techniques, knife skills, meal planning, and how to prepare healthy, budget-friendly meals from scratch. Emphasis is on building confidence in the kitchen for everyday eating and special occasions.',
+      imagePath: './Images/Cooking.jpg',
       fullDescription:
         'A hands-on six-week course teaching basic sewing, hemming, pattern reading, and garment creation. Ideal for beginners who want creative skills for home or small business use.',
     },
     {
       id: 2,
-      title: 'Life Skills',
-      description: 'Build personal and social skills for effective communication and confidence.',
+      title: 'Child Minding',
+      description: 'This course prepares individuals to provide safe, nurturing, and engaging care for children. It covers child development stages,',
+       imagePath: './Images/ChildMinding.jpg',
       fullDescription:
         'This six-week program focuses on building communication, problem-solving, and emotional intelligence for everyday challenges.',
     },
     {
-      id: 2,
-      title: 'Life Skills',
-      description: 'Build personal and social skills for effective communication and confidence.',
+      id: 3,
+      title: 'Garden Maintenance',
+      description: 'Learn the ongoing tasks required to keep a garden thriving. This course covers seasonal pruning, weeding, organic pest control, composting, soil health.',
+       imagePath: './Images/Garden.jpg',
       fullDescription:
         'This six-week program focuses on building communication, problem-solving, and emotional intelligence for everyday challenges.',
     },
@@ -111,16 +118,17 @@ function SixWeekCoursesScreen({ navigation }) {
 
       {sixWeekCourses.map((course) => (
         <View key={course.id} style={styles.courseCard}>
-          <Image source={course.image} style={styles.courseImageStyled} />
-          <Text style={styles.courseTitle}>{course.title}</Text>
-          <Text style={styles.courseDescription}>{course.description}</Text>
-          <TouchableOpacity
-            style={styles.learnMoreButton}
-            onPress={() => navigation.navigate('CourseDetails', { course })}
-          >
-            <Text style={styles.learnMoreText}>Learn More</Text>
-          </TouchableOpacity>
-        </View>
+ <Image source={course.Images} style={styles.courseImageStyled} />
+  <Text style={styles.courseTitle}>{course.title}</Text>
+  <Text style={styles.courseDescription}>{course.description}</Text>
+
+  <TouchableOpacity
+    style={styles.learnMoreButton}
+    onPress={() => navigation.navigate('CourseDetails', { course })}
+  >
+    <Text style={styles.learnMoreText}>Learn More</Text>
+  </TouchableOpacity>
+</View>
       ))}
     </ScrollView>
   );
@@ -132,19 +140,36 @@ function SixWeekCoursesScreen({ navigation }) {
 function SixMonthCoursesScreen({ navigation }) {
   const sixMonthCourses = [
     {
-      id: 3,
+      id: 4,
       title: 'First Aid',
       description: 'Gain lifesaving skills including CPR, wound care, and emergency response.',
+      imagePath: './Images/FirstAid.jpg',
       fullDescription:
         'This six-month course provides training in emergency medical response, including CPR, wound care, and stabilizing patients before professional help arrives.',
     },
     {
-      id: 4,
-      title: 'Landscaping',
-      
+      id: 5,
+      title: 'Sewing',
+      imagePath: './Images/Sewing.jpg',
       description: 'Learn garden design, planting, and eco-friendly outdoor maintenance.',
+      fullDescription: 'A hands-on six-week course teaching basic sewing, hemming, pattern reading, and garment creation. Ideal for beginners who want creative skills for home or small business use.',
+
+    },
+    {
+      id: 6,
+      title: 'Landscaping',
+      description: 'Gain lifesaving skills including CPR, wound care, and emergency response.',
+      imagePath: './Images/landscaping.jpg',
       fullDescription:
-        'A six-month practical course focusing on garden layout, soil care, plant selection, and landscaping design for homes or businesses.',
+       'A six-month practical course focusing on garden layout, soil care, plant selection, and landscaping design for homes or businesses.',
+    },
+    {
+      id: 7,
+      title: 'Life Skills',
+      description: 'Gain lifesaving skills including CPR, wound care, and emergency response.',
+      imagePath: './Images/LifeSkills.jpg',
+      fullDescription:
+        'This six-month course provides training in emergency medical response, including CPR, wound care, and stabilizing patients before professional help arrives.',
     },
   ];
 
@@ -155,7 +180,8 @@ function SixMonthCoursesScreen({ navigation }) {
 
       {sixMonthCourses.map((course) => (
         <View key={course.id} style={styles.courseCard}>
-          <Image source={course.image} style={styles.courseImageStyled} />
+          <Image source={course.Images} style={styles.courseImageStyled} />
+
           <Text style={styles.courseTitle}>{course.title}</Text>
           <Text style={styles.courseDescription}>{course.description}</Text>
           <TouchableOpacity
@@ -173,53 +199,38 @@ function SixMonthCoursesScreen({ navigation }) {
 
 
 // 📘 COURSE DETAIL SCREEN
-function CourseDetail({ route }) {
-  const { courseName } = route.params;
-  const courseInfo = {
-    'First Aid': 'Covers emergency response and CPR skills.',
-    'Sewing': 'Learn pattern making, cutting, and machine operation.',
-    'Cooking': 'Covers meal preparation, safety, and hygiene.',
-    'Child Minding': 'Teaches early childhood care and development.',
-    'Landscaping': 'Focus on garden design, soil prep, and maintenance.',
-    'Life Skills': 'Enhances communication, problem-solving, and teamwork.',
-  };
+function CourseDetail({navigation, route }) {
+const { course } = route.params;
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>{courseName}</Text>
-      <Text style={styles.text}>{courseInfo[courseName]}</Text>
-    </View>
+    <ScrollView style={styles.detailsContainer}>
+      <Image source={course.image} style={styles.detailsImage} />
+      <Text style={styles.detailsTitle}>{course.title}</Text>
+
+      <View style={styles.detailsBox}>
+        <Text style={styles.detailsHeading}>Course Overview</Text>
+        <Text style={styles.detailsText}>
+          {course.fullDescription || 'Detailed information about this course will appear here.'}
+        </Text>
+
+        <Text style={styles.detailsHeading}>Duration</Text>
+        <Text style={styles.detailsText}>
+          {course.title.includes('Six-Week') ? '6 weeks' : '6 months'}
+        </Text>
+
+        <Text style={styles.detailsHeading}>Certification</Text>
+        <Text style={styles.detailsText}>
+          Upon successful completion, you will receive a Certificate of Competence.
+        </Text>
+
+        <TouchableOpacity style={styles.bookButton} onPress={() => navigation.navigate('BookingSuccess')}>
+          <Text style={styles.bookButtonText}>Book Now</Text>
+        </TouchableOpacity>
+      </View>
+    </ScrollView>
   );
 }
 
-// 💰 FEE CALCULATOR
-function FeeCalculator() {
-  const [discount, setDiscount] = useState('');
-  const [total, setTotal] = useState(null);
-  const baseFee = 2000;
-
-  const calculate = () => {
-    const d = parseFloat(discount) || 0;
-    const result = baseFee - (baseFee * d) / 100;
-    setTotal(result);
-  };
-
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Calculate Total Fees</Text>
-      <Text>Each course base fee: R {baseFee}</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Enter discount %"
-        keyboardType="numeric"
-        value={discount}
-        onChangeText={setDiscount}
-      />
-      <Button title="Apply Discount" color="#4CAF50" onPress={calculate} />
-      {total && <Text style={styles.result}>Total Fee: R {total.toFixed(2)}</Text>}
-    </View>
-  );
-}
 
 // 📍 LOCATIONS
 function Locations() {
@@ -289,7 +300,7 @@ export default function App() {
       >
         <Tab.Screen name="Home" component={HomeScreen} />
         <Tab.Screen name="Courses" component={CoursesStack} options={{ headerShown: false }} />
-        <Tab.Screen name="Fees" component={FeeCalculator} />
+        <Tab.Screen name="Fees" component={FeeCalculatorScreen} />
         <Tab.Screen name="Location" component={Locations} />
         <Tab.Screen name="Contact Us" component={Contact} />
       </Tab.Navigator>
@@ -394,6 +405,7 @@ pageSubtext: {
   marginBottom: 20,
 },
 
+// CardImage for the week/month page
 courseCard: {
   backgroundColor: 'white',
   borderRadius: 16,
@@ -440,5 +452,112 @@ learnMoreText: {
   fontWeight: '600',
 },
 
-  
+detailsContainer: {
+    flex: 1,
+    backgroundColor: '#F8FFF7',
+  },
+  detailsImage: {
+    width: '100%',
+    height: 250,
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
+  },
+  detailsContent: {
+    padding: 20,
+  },
+  detailsTitle: {
+    fontSize: 26,
+    fontWeight: 'bold',
+    color: '#2E8B57',
+    marginBottom: 15,
+    textAlign: 'center',
+  },
+  detailsText: {
+    fontSize: 16,
+    lineHeight: 24,
+    color: '#333',
+    marginBottom: 30,
+    textAlign: 'justify',
+  },
+  bookButton: {
+    backgroundColor: '#FF8C00',
+    borderRadius: 10,
+    paddingVertical: 14,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOpacity: 0.2,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 3,
+    elevation: 5,
+  },
+  bookButtonText: {
+    color: 'white',
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+
+  // ======= COURSE DETAILS STYLES =======
+detailsContainer: {
+  flex: 1,
+  backgroundColor: '#F6FFF3',
+},
+
+detailsImage: {
+  width: '100%',
+  height: 250,
+  borderBottomLeftRadius: 20,
+  borderBottomRightRadius: 20,
+},
+
+detailsTitle: {
+  fontSize: 26,
+  fontWeight: 'bold',
+  color: '#2E8B57',
+  textAlign: 'center',
+  marginTop: 15,
+},
+
+detailsBox: {
+  margin: 20,
+  backgroundColor: 'white',
+  borderRadius: 16,
+  padding: 15,
+  shadowColor: '#000',
+  shadowOpacity: 0.1,
+  shadowOffset: { width: 0, height: 2 },
+  shadowRadius: 4,
+  elevation: 3,
+},
+
+detailsHeading: {
+  fontSize: 18,
+  fontWeight: 'bold',
+  color: '#228B22',
+  marginTop: 10,
+  marginBottom: 5,
+},
+
+detailsText: {
+  fontSize: 15,
+  color: '#333',
+  lineHeight: 22,
+},
+
+bookButton: {
+  marginTop: 25,
+  backgroundColor: '#FFA500',
+  paddingVertical: 12,
+  borderRadius: 10,
+  alignItems: 'center',
+},
+
+bookButtonText: {
+  color: 'white',
+  fontSize: 18,
+  fontWeight: 'bold',
+},
+
+// MAIN PAGE
+
 });
+
