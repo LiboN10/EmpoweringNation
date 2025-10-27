@@ -118,7 +118,8 @@ function SixWeekCoursesScreen({ navigation }) {
 
       {sixWeekCourses.map((course) => (
         <View key={course.id} style={styles.courseCard}>
- <Image source={course.Images} style={styles.courseImageStyled} />
+  <Image source={courseImages[course.title]} style={styles.courseImageStyled} />
+
   <Text style={styles.courseTitle}>{course.title}</Text>
   <Text style={styles.courseDescription}>{course.description}</Text>
 
@@ -129,6 +130,7 @@ function SixWeekCoursesScreen({ navigation }) {
     <Text style={styles.learnMoreText}>Learn More</Text>
   </TouchableOpacity>
 </View>
+
       ))}
     </ScrollView>
   );
@@ -180,17 +182,19 @@ function SixMonthCoursesScreen({ navigation }) {
 
       {sixMonthCourses.map((course) => (
         <View key={course.id} style={styles.courseCard}>
-          <Image source={course.Images} style={styles.courseImageStyled} />
+  <Image source={courseImages[course.title]} style={styles.courseImageStyled} />
 
-          <Text style={styles.courseTitle}>{course.title}</Text>
-          <Text style={styles.courseDescription}>{course.description}</Text>
-          <TouchableOpacity
-            style={styles.learnMoreButton}
-            onPress={() => navigation.navigate('CourseDetails', { course })}
-          >
-            <Text style={styles.learnMoreText}>Learn More</Text>
-          </TouchableOpacity>
-        </View>
+  <Text style={styles.courseTitle}>{course.title}</Text>
+  <Text style={styles.courseDescription}>{course.description}</Text>
+
+  <TouchableOpacity
+    style={styles.learnMoreButton}
+    onPress={() => navigation.navigate('CourseDetails', { course })}
+  >
+    <Text style={styles.learnMoreText}>Learn More</Text>
+  </TouchableOpacity>
+</View>
+
       ))}
     </ScrollView>
   );
@@ -557,7 +561,24 @@ bookButtonText: {
   fontWeight: 'bold',
 },
 
-// MAIN PAGE
+courseCard: {
+  backgroundColor: 'white',
+  borderRadius: 16,
+  padding: 15,
+  marginVertical: 10,
+  shadowColor: '#000',
+  shadowOpacity: 0.1,
+  shadowOffset: { width: 0, height: 2 },
+  shadowRadius: 4,
+  elevation: 3,
+},
+courseImageStyled: {
+  width: '100%',
+  height: 200,
+  borderRadius: 12,
+  marginBottom: 10,
+},
+
 
 });
 
