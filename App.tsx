@@ -223,7 +223,7 @@ const { course } = route.params;
           Upon successful completion, you will receive a Certificate of Competence.
         </Text>
 
-        <TouchableOpacity style={styles.bookButton} onPress={() => navigation.navigate('BookingSuccess')}>
+        <TouchableOpacity style={styles.bookButton} onPress={() => navigation.navigate('FeeCalculator')}>
           <Text style={styles.bookButtonText}>Book Now</Text>
         </TouchableOpacity>
       </View>
