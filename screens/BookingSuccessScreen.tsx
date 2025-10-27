@@ -16,7 +16,7 @@ export default function BookingSuccessScreen({ navigation }) {
 
       <TouchableOpacity
         style={styles.homeButton}
-        onPress={() => navigation.navigate('Home')}
+        onPress={() => navigation.navigate('EMPOWERING THE NATION')}
       >
         <Text style={styles.homeButtonText}>Back to Home</Text>
       </TouchableOpacity>

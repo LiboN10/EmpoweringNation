@@ -29,31 +29,32 @@ import BookingSuccessScreen from './screens/BookingSuccessScreen';
 import CoursesMainScreen from './screens/CoursesMainScreen';
 
 
-// 🏠 HOME SCREEN
+// HOME SCREEN
 function HomeScreen({ navigation }) {
   return (
+    
     <ScrollView style={styles.container}>
-      <Image source={{ uri: 'https://images.unsplash.com/photo-1589571894960-20bbe2828a37?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3&s=' }} style={styles.image} />
+      <Image source={require('./Images/woman.png' )} style={styles.image} />
       <Text style={styles.title}>EMPOWERING THE NATION</Text>
 
-      <Text style={styles.subtitle}>Our Vision</Text>
-      <Text style={styles.text}>
+      <Text style={styles.subtitleOne}>Our Vision</Text>
+      <Text style={styles.paraText}>
         To create a future where every domestic worker and gardener has access to affordable, 
         practical skills training that unlocks better opportunities, 
         promotes self-reliance, and uplifts entire communities through empowered, 
         skilled, and confident individuals.
       </Text>
 
-      <Text style={styles.subtitle}>Our Mission</Text>
-      <Text style={styles.text}>
+      <Text style={styles.subtitleTwo}>Our Mission</Text>
+      <Text style={styles.paraText}>
         We are committed to equipping individuals with quality training programmes 
         that enhance employability, foster entrepreneurship, and inspire dignity.
         Our mission is to transform untapped potential into sustainable success, 
         strengthening both households and communities across South Africa.
       </Text>
 
-      <Text style={styles.subtitle}>Our Values</Text>
-      <Text style={styles.text}>
+      <Text style={styles.subtitleThird}>Our Values</Text>
+      <Text style={styles.paraText}>
         At Empowering the Nation, our values are rooted in creating opportunities that uplift 
         individuals and communities. We believe in dignity, self-reliance, and lifelong learning.
         By providing high-quality, practical skills training, we empower people to improve their 
@@ -72,16 +73,16 @@ function HomeScreen({ navigation }) {
 //
 // ======= SIX-WEEK COURSES PAGE =======
 function SixWeekCoursesScreen({ navigation }) {
-  const courseImages = {
-  'Sewing': require('./Images/Sewing.jpg'),
-  'Life Skills': require('./Images/LifeSkills.jpg'),
-  'First Aid': require('./Images/FirstAid.jpg'),
-  'Landscaping': require('./Images/landscaping.jpeg'),
-  'Cooking': require('./Images/cooking.jpeg'),
-  'Child Minding': require('./Images/ChildMinding.jpg'),
-  'Garden Maintenance': require('./Images/Garden.jpg'),
-  
-};
+  const courseImage = {
+    'Sewing': require('./Images/Sewing.jpg'),
+    'Life Skills': require('./Images/LifeSkills.jpg'),
+    'First Aid': require('./Images/FirstAid.jpg'),
+    'Landscaping': require('./Images/landscaping.jpeg'),
+    'Cooking': require('./Images/cooking.jpeg'),
+    'Child Minding': require('./Images/ChildMinding.jpg'),
+    'Garden Maintenance': require('./Images/Garden.jpg'),
+  }
+
 
 
   const sixWeekCourses = [
@@ -89,7 +90,7 @@ function SixWeekCoursesScreen({ navigation }) {
       id: 1,
       title: 'Cooking',
       description: 'A foundational course in food preparation and nutrition. Learn basic cooking techniques, knife skills, meal planning, and how to prepare healthy, budget-friendly meals from scratch. Emphasis is on building confidence in the kitchen for everyday eating and special occasions.',
-      imagePath: './Images/Cooking.jpg',
+      imagePath: require('./Images/cooking.jpeg'),
       fullDescription:
         'A hands-on six-week course teaching basic sewing, hemming, pattern reading, and garment creation. Ideal for beginners who want creative skills for home or small business use.',
     },
@@ -97,7 +98,7 @@ function SixWeekCoursesScreen({ navigation }) {
       id: 2,
       title: 'Child Minding',
       description: 'This course prepares individuals to provide safe, nurturing, and engaging care for children. It covers child development stages,',
-       imagePath: './Images/ChildMinding.jpg',
+       imagePath: require('./Images/ChildMinding.jpg'),
       fullDescription:
         'This six-week program focuses on building communication, problem-solving, and emotional intelligence for everyday challenges.',
     },
@@ -105,7 +106,7 @@ function SixWeekCoursesScreen({ navigation }) {
       id: 3,
       title: 'Garden Maintenance',
       description: 'Learn the ongoing tasks required to keep a garden thriving. This course covers seasonal pruning, weeding, organic pest control, composting, soil health.',
-       imagePath: './Images/Garden.jpg',
+       imagePath: require('./Images/Garden.jpg'),
       fullDescription:
         'This six-week program focuses on building communication, problem-solving, and emotional intelligence for everyday challenges.',
     },
@@ -118,7 +119,7 @@ function SixWeekCoursesScreen({ navigation }) {
 
       {sixWeekCourses.map((course) => (
         <View key={course.id} style={styles.courseCard}>
-  <Image source={courseImages[course.title]} style={styles.courseImageStyled} />
+        <Image source={course.imagePath} style={styles.courseImageStyled} />
 
   <Text style={styles.courseTitle}>{course.title}</Text>
   <Text style={styles.courseDescription}>{course.description}</Text>
@@ -145,14 +146,14 @@ function SixMonthCoursesScreen({ navigation }) {
       id: 4,
       title: 'First Aid',
       description: 'Gain lifesaving skills including CPR, wound care, and emergency response.',
-      imagePath: './Images/FirstAid.jpg',
+      imagePath: require('./Images/FirstAid.jpg'),
       fullDescription:
         'This six-month course provides training in emergency medical response, including CPR, wound care, and stabilizing patients before professional help arrives.',
     },
     {
       id: 5,
       title: 'Sewing',
-      imagePath: './Images/Sewing.jpg',
+      imagePath: require('./Images/Sewing.jpg'),
       description: 'Learn garden design, planting, and eco-friendly outdoor maintenance.',
       fullDescription: 'A hands-on six-week course teaching basic sewing, hemming, pattern reading, and garment creation. Ideal for beginners who want creative skills for home or small business use.',
 
@@ -161,7 +162,7 @@ function SixMonthCoursesScreen({ navigation }) {
       id: 6,
       title: 'Landscaping',
       description: 'Gain lifesaving skills including CPR, wound care, and emergency response.',
-      imagePath: './Images/landscaping.jpg',
+      imagePath: require('./Images/landscaping.jpeg'),
       fullDescription:
        'A six-month practical course focusing on garden layout, soil care, plant selection, and landscaping design for homes or businesses.',
     },
@@ -169,7 +170,7 @@ function SixMonthCoursesScreen({ navigation }) {
       id: 7,
       title: 'Life Skills',
       description: 'Gain lifesaving skills including CPR, wound care, and emergency response.',
-      imagePath: './Images/LifeSkills.jpg',
+      imagePath: require('./Images/LifeSkills.jpg'),
       fullDescription:
         'This six-month course provides training in emergency medical response, including CPR, wound care, and stabilizing patients before professional help arrives.',
     },
@@ -182,7 +183,7 @@ function SixMonthCoursesScreen({ navigation }) {
 
       {sixMonthCourses.map((course) => (
         <View key={course.id} style={styles.courseCard}>
-  <Image source={courseImages[course.title]} style={styles.courseImageStyled} />
+        <Image source={course.imagePath} style={styles.courseImageStyled} />
 
   <Text style={styles.courseTitle}>{course.title}</Text>
   <Text style={styles.courseDescription}>{course.description}</Text>
@@ -202,7 +203,7 @@ function SixMonthCoursesScreen({ navigation }) {
 
 
 
-// 📘 COURSE DETAIL SCREEN
+//  COURSE DETAIL SCREEN
 function CourseDetail({navigation, route }) {
 const { course } = route.params;
 
@@ -236,25 +237,78 @@ const { course } = route.params;
 }
 
 
-// 📍 LOCATIONS
-function Locations() {
+//  LOCATIONS
+
+export default function Locations() {
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.title}>Our Locations</Text>
+
+      {/* Sandton */}
       <View style={styles.card}>
-        <Text>📍 212 Modder Street, Sandton, Johannesburg</Text>
+        <Text style={styles.address}>212 Modder Street, Sandton, Johannesburg</Text>
+        <MapView
+          style={styles.map}
+          initialRegion={{
+            latitude: -26.1076,
+            longitude: 28.0567,
+            latitudeDelta: 0.02,
+            longitudeDelta: 0.02,
+          }}
+        >
+          <Marker
+            coordinate={{ latitude: -26.1076, longitude: 28.0567 }}
+            title="Sandton Campus"
+            description="212 Modder Street, Sandton"
+          />
+        </MapView>
       </View>
+
+      {/* Auckland Park */}
       <View style={styles.card}>
-        <Text>📍 107 Corner Kingsway & University Road, Auckland Park, Johannesburg</Text>
+        <Text style={styles.address}>107 Corner Kingsway & University Road, Auckland Park, Johannesburg</Text>
+        <MapView
+          style={styles.map}
+          initialRegion={{
+            latitude: -26.1798,
+            longitude: 27.9961,
+            latitudeDelta: 0.02,
+            longitudeDelta: 0.02,
+          }}
+        >
+          <Marker
+            coordinate={{ latitude: -26.1798, longitude: 27.9961 }}
+            title="Auckland Park Campus"
+            description="107 Corner Kingsway & University Road"
+          />
+        </MapView>
       </View>
+
+      {/* Sophiatown */}
       <View style={styles.card}>
-        <Text>📍 Hermanus Streets, Sophiatown, Johannesburg</Text>
+        <Text style={styles.address}>Hermanus Streets, Sophiatown, Johannesburg</Text>
+        <MapView
+          style={styles.map}
+          initialRegion={{
+            latitude: -26.1823,
+            longitude: 27.9828,
+            latitudeDelta: 0.02,
+            longitudeDelta: 0.02,
+          }}
+        >
+          <Marker
+            coordinate={{ latitude: -26.1823, longitude: 27.9828 }}
+            title="Sophiatown Campus"
+            description="Hermanus Streets, Sophiatown"
+          />
+        </MapView>
       </View>
     </ScrollView>
   );
 }
 
-// 📞 CONTACT
+
+//  CONTACT
 function Contact() {
   const [name, setName] = useState('');
   const [message, setMessage] = useState('');
@@ -283,7 +337,7 @@ export default function App() {
           tabBarActiveTintColor: 'white',
           tabBarInactiveTintColor: '#2E8B57',
           tabBarStyle: { backgroundColor: '#90EE90', paddingBottom: 5 },
-          // 💡 Add icons for each tab here
+          //  Add icons for each tab here
           tabBarIcon: ({ color, size }) => {
             let iconName;
 
@@ -313,11 +367,11 @@ export default function App() {
 }
 
 
-// 🎨 STYLES
+//  STYLES
 const styles = StyleSheet.create({
   container: { 
     flex: 1, 
-    backgroundColor: '#E8F5E9', 
+    backgroundColor: '#ffffffff', 
     padding: 15 
   },
   image: { 
@@ -332,14 +386,35 @@ const styles = StyleSheet.create({
     textAlign: 'center', 
     marginVertical: 10 
   },
-  subtitle: { 
+  subtitleOne: { 
     fontSize: 18, 
     fontWeight: '600', 
-    marginTop: 10 
+    marginTop: 10,
+    textAlign: 'center', 
+    color:'#008CFF', 
+  },
+  subtitleTwo: { 
+    fontSize: 18, 
+    fontWeight: '600', 
+    marginTop: 10,
+    textAlign: 'center',
+    color: '#61C316',  
+  },
+  subtitleThird: { 
+    fontSize: 18, 
+    fontWeight: '600', 
+    marginTop: 10,
+    textAlign: 'center', 
+    color:'#FF785D', 
   },
   text: { 
     fontSize: 14, 
     marginVertical: 4 
+  },
+   paraText: { 
+    fontSize: 14, 
+    marginVertical: 4,
+    textAlign: 'center', 
   },
 card: {
     backgroundColor: '#008CFF',
@@ -389,7 +464,7 @@ card: {
   // --- COURSE PAGE STYLES ---
 coursePage: {
   flex: 1,
-  backgroundColor: '#F6FFF3',
+  backgroundColor: '#ffffffff',
   paddingHorizontal: 15,
   paddingTop: 20,
 },
@@ -397,7 +472,7 @@ coursePage: {
 pageHeader: {
   fontSize: 24,
   fontWeight: 'bold',
-  color: '#2E8B57',
+  color: '#33965eff',
   textAlign: 'center',
   marginBottom: 5,
 },
@@ -411,7 +486,7 @@ pageSubtext: {
 
 // CardImage for the week/month page
 courseCard: {
-  backgroundColor: 'white',
+  backgroundColor: '#008CFF',
   borderRadius: 16,
   padding: 15,
   marginVertical: 10,
@@ -427,18 +502,19 @@ courseImageStyled: {
   height: 200,
   borderRadius: 12,
   marginBottom: 10,
+  color:'black',
 },
 
 courseTitle: {
   fontSize: 20,
   fontWeight: 'bold',
-  color: '#2E8B57',
+  color: '#ffffffff',
   marginBottom: 5,
 },
 
 courseDescription: {
   fontSize: 15,
-  color: '#444',
+  color: '#ffffffff',
   marginBottom: 15,
   lineHeight: 22,
 },
@@ -501,25 +577,7 @@ detailsContainer: {
   },
 
   // ======= COURSE DETAILS STYLES =======
-detailsContainer: {
-  flex: 1,
-  backgroundColor: '#F6FFF3',
-},
 
-detailsImage: {
-  width: '100%',
-  height: 250,
-  borderBottomLeftRadius: 20,
-  borderBottomRightRadius: 20,
-},
-
-detailsTitle: {
-  fontSize: 26,
-  fontWeight: 'bold',
-  color: '#2E8B57',
-  textAlign: 'center',
-  marginTop: 15,
-},
 
 detailsBox: {
   margin: 20,
@@ -540,45 +598,5 @@ detailsHeading: {
   marginTop: 10,
   marginBottom: 5,
 },
-
-detailsText: {
-  fontSize: 15,
-  color: '#333',
-  lineHeight: 22,
-},
-
-bookButton: {
-  marginTop: 25,
-  backgroundColor: '#FFA500',
-  paddingVertical: 12,
-  borderRadius: 10,
-  alignItems: 'center',
-},
-
-bookButtonText: {
-  color: 'white',
-  fontSize: 18,
-  fontWeight: 'bold',
-},
-
-courseCard: {
-  backgroundColor: 'white',
-  borderRadius: 16,
-  padding: 15,
-  marginVertical: 10,
-  shadowColor: '#000',
-  shadowOpacity: 0.1,
-  shadowOffset: { width: 0, height: 2 },
-  shadowRadius: 4,
-  elevation: 3,
-},
-courseImageStyled: {
-  width: '100%',
-  height: 200,
-  borderRadius: 12,
-  marginBottom: 10,
-},
-
-
 });
 
